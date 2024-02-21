@@ -52,3 +52,17 @@ export interface Tproduct {
     batteryLife: string;
 }
 
+interface TuserInfo {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    __v: 0;
+}
+
+export interface Tresponse {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: TuserInfo[]
+}
