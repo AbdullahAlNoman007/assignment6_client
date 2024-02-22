@@ -1,6 +1,6 @@
-import { Button, Col, Input, Pagination, Row, Slider, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Col, Input, Modal, Pagination, Row, Slider, Space, Table, TableColumnsType, TableProps } from "antd";
 import { Link } from "react-router-dom";
-import { useGetphoneQuery } from "../../../redux/features/getPhone/getPhoneApi";
+import { useDeletephoneMutation, useGetphoneQuery } from "../../../redux/features/getPhone/getPhoneApi";
 import { Tfilter, TproductData, Tresponse } from "../../../types/program.type";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
@@ -8,6 +8,7 @@ import { IoDuplicate } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa";
 import { batteryLifeFilterOptions, cameraQualityFilterOptions, phoneBrandFilterOptions, ramFilterOptions, romFilterOptions, screenSizeFilterOptions } from "../../../const";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type TtableData = {
     key: string;
@@ -120,9 +121,7 @@ const AllPhone = () => {
                     <Link to={`/superAdmin/update-phone/${item.key}`}>
                         <Button><CiEdit /></Button>
                     </Link>
-                    <Link to={`/superAdmin/product-update/${item.key}`}>
-                        <Button><MdDelete /></Button>
-                    </Link>
+                    <DeleteModal productId={item.key} />
                     <Link to={`/superAdmin/create-variant/${item.key}`}>
                         <Button><IoDuplicate /></Button>
                     </Link>
@@ -219,3 +218,47 @@ const AllPhone = () => {
 };
 
 export default AllPhone;
+
+const DeleteModal = ({ productId }: { productId: string }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [deletephone] = useDeletephoneMutation()
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const query = {
+        id: [productId]
+    }
+
+    const handleOk = async () => {
+        const toastId = toast.loading('Deleting...')
+
+        try {
+            const res = await deletephone(query).unwrap()
+            const success = res.success
+
+            if (!success) {
+                throw new Error()
+            }
+            toast.success(res.message, { id: toastId })
+        } catch (error: any) {
+            toast.error(error?.data?.errorMessage, { id: toastId })
+        }
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <>
+            <Button onClick={showModal}>
+                <MdDelete />
+            </Button>
+            <Modal title="Delete Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <p>You want to Delete the Product??</p>
+            </Modal>
+        </>
+    );
+};
