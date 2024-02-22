@@ -10,6 +10,7 @@ import CreateManager from "../pages/Admin/userManagement/CreateManager";
 import CreateSeller from "../pages/Admin/userManagement/CreateSeller";
 import CreateSuperAdmin from "../pages/Admin/userManagement/CreateSuperAdmin";
 import CreateVariant from "../pages/CreateVariant";
+import InVoice from "../pages/InVoice";
 import UpdatePhone from "../pages/UpdatePhone";
 
 
@@ -72,6 +73,10 @@ export const adminPaths = [
         element: <UpdatePhone />
       },
       {
+        path: "invoice",
+        element: <InVoice />
+      },
+      {
         path: "create-variant/:id",
         element: <CreateVariant />
       },
@@ -84,7 +89,8 @@ export const adminPaths = [
         name: "Sale History",
         path: "sale-history",
         element: <SaleHistory />
-      }
+      },
+
     ]
   }
 ];

@@ -1,5 +1,5 @@
 import { Button, Col, Input, Modal, Pagination, Row, Slider, Space, Table, TableColumnsType, TableProps } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDeletephoneMutation, useGetphoneQuery } from "../../../redux/features/getPhone/getPhoneApi";
 import { Tfilter, TproductData, Tresponse } from "../../../types/program.type";
 import { CiEdit } from "react-icons/ci";
@@ -9,6 +9,10 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { batteryLifeFilterOptions, cameraQualityFilterOptions, phoneBrandFilterOptions, ramFilterOptions, romFilterOptions, screenSizeFilterOptions } from "../../../const";
 import { useState } from "react";
 import { toast } from "sonner";
+import PHForm from "../../../components/form/PHForm";
+import PHInput from "../../../components/form/PHInput";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useBuyphoneMutation } from "../../../redux/features/getPhone/updatePhoneApi";
 
 type TtableData = {
     key: string;
@@ -125,9 +129,7 @@ const AllPhone = () => {
                     <Link to={`/superAdmin/create-variant/${item.key}`}>
                         <Button><IoDuplicate /></Button>
                     </Link>
-                    <Link to={`/superAdmin/product-update/${item.key}`}>
-                        <Button><FaCartArrowDown /></Button>
-                    </Link>
+                    <SellModal productId={item.key} />
                 </Space>
             ),
             width: '1%'
@@ -258,6 +260,71 @@ const DeleteModal = ({ productId }: { productId: string }) => {
             </Button>
             <Modal title="Delete Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <p>You want to Delete the Product??</p>
+            </Modal>
+        </>
+    );
+};
+
+const SellModal = ({ productId }: { productId: string }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [buyphone] = useBuyphoneMutation();
+    const navigate = useNavigate();
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+
+    const handleOk = async () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const saleInfo = {
+            buyerName: data.buyerName,
+            quantity: Number(data.quantity),
+            saleDate: data.saleDate
+        }
+
+        const toastId = toast.loading('Buying...')
+
+        try {
+            const res = await buyphone({ id: productId, body: saleInfo }).unwrap()
+            const success = res.success
+
+            if (!success) {
+                throw new Error()
+            }
+            toast.success(res.message, { id: toastId })
+        } catch (error: any) {
+            toast.error(error?.data?.errorMessage, { id: toastId })
+        }
+        setIsModalOpen(false);
+        navigate('/superAdmin/invoice', { state: saleInfo })
+
+
+    }
+
+    return (
+        <>
+            <Button onClick={showModal}>
+                <FaCartArrowDown />
+            </Button>
+            <Modal title="Sale Details" footer={false} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Row justify='center' align='middle'>
+                    <Col span={20}>
+                        <PHForm onSubmit={onSubmit}>
+                            <PHInput type="text" name="buyerName" label="Buyer Name" placeholder="Buyer Name" />
+                            <PHInput type="number" name="quantity" label="Quantity" placeholder="Quantity" />
+                            <PHInput type="text" name="saleDate" label="Sale Date" placeholder="Date(YYYY-MM-DD)" />
+                            <Button htmlType="submit">Buy</Button>
+                        </PHForm>
+                    </Col>
+                </Row>
             </Modal>
         </>
     );
