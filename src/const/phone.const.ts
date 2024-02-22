@@ -233,3 +233,86 @@ export const colorOptions = [
         label: 'Purple',
     }
 ];
+
+export const phoneBrandOptions = [
+    {
+        value: 'samsung',
+        label: 'Samsung',
+    },
+    {
+        value: 'apple',
+        label: 'Apple',
+    },
+    {
+        value: 'huawei',
+        label: 'Huawei',
+    },
+    {
+        value: 'xiaomi',
+        label: 'Xiaomi',
+    },
+    {
+        value: 'oneplus',
+        label: 'OnePlus',
+    },
+    {
+        value: 'google',
+        label: 'Google',
+    },
+    {
+        value: 'sony',
+        label: 'Sony',
+    },
+    {
+        value: 'lg',
+        label: 'LG',
+    },
+    {
+        value: 'motorola',
+        label: 'Motorola',
+    },
+    {
+        value: 'nokia',
+        label: 'Nokia',
+    },
+    {
+        value: 'htc',
+        label: 'HTC',
+    },
+    {
+        value: 'asus',
+        label: 'Asus',
+    },
+    {
+        value: 'lenovo',
+        label: 'Lenovo',
+    },
+    {
+        value: 'oppo',
+        label: 'Oppo',
+    },
+    {
+        value: 'vivo',
+        label: 'Vivo',
+    },
+    {
+        value: 'realme',
+        label: 'Realme',
+    },
+    {
+        value: 'blackberry',
+        label: 'BlackBerry',
+    },
+    {
+        value: 'meizu',
+        label: 'Meizu',
+    },
+    {
+        value: 'zte',
+        label: 'ZTE',
+    },
+    {
+        value: 'alcatel',
+        label: 'Alcatel',
+    }
+];

@@ -231,3 +231,121 @@ export const colorFilterOptions = [
         value: 'Purple',
     },
 ];
+
+export const phoneBrandFilterOptions = [
+    {
+        text: 'Samsung',
+        value: 'Samsung',
+    },
+    {
+        text: 'Apple',
+        value: 'Apple',
+    },
+    {
+        text: 'Huawei',
+        value: 'Huawei',
+    },
+    {
+        text: 'Xiaomi',
+        value: 'Xiaomi',
+    },
+    {
+        text: 'OnePlus',
+        value: 'OnePlus',
+    },
+    {
+        text: 'Google',
+        value: 'Google',
+    },
+    {
+        text: 'Sony',
+        value: 'Sony',
+    },
+    {
+        text: 'LG',
+        value: 'LG',
+    },
+    {
+        text: 'Motorola',
+        value: 'Motorola',
+    },
+    {
+        text: 'Nokia',
+        value: 'Nokia',
+    },
+    {
+        text: 'HTC',
+        value: 'HTC',
+    },
+    {
+        text: 'Asus',
+        value: 'Asus',
+    },
+    {
+        text: 'Lenovo',
+        value: 'Lenovo',
+    },
+    {
+        text: 'Oppo',
+        value: 'Oppo',
+    },
+    {
+        text: 'Vivo',
+        value: 'Vivo',
+    },
+    {
+        text: 'Realme',
+        value: 'Realme',
+    },
+    {
+        text: 'BlackBerry',
+        value: 'BlackBerry',
+    },
+    {
+        text: 'Meizu',
+        value: 'Meizu',
+    },
+    {
+        text: 'ZTE',
+        value: 'ZTE',
+    },
+    {
+        text: 'Alcatel',
+        value: 'Alcatel',
+    }
+];
+export const priceFilterOptions = [
+    { text: '50', value: '50' },
+    { text: '100', value: '100' },
+    { text: '150', value: '150' },
+    { text: '200', value: '200' },
+    { text: '250', value: '250' },
+    { text: '300', value: '300' },
+    { text: '350', value: '350' },
+    { text: '400', value: '400' },
+    { text: '450', value: '450' },
+    { text: '500', value: '500' },
+    { text: '550', value: '550' },
+    { text: '600', value: '600' },
+    { text: '650', value: '650' },
+    { text: '700', value: '700' },
+    { text: '750', value: '750' },
+    { text: '800', value: '800' },
+    { text: '850', value: '850' },
+    { text: '900', value: '900' },
+    { text: '950', value: '950' },
+    { text: '1000', value: '1000' },
+    { text: '1050', value: '1050' },
+    { text: '1100', value: '1100' },
+    { text: '1150', value: '1150' },
+    { text: '1200', value: '1200' },
+    { text: '1250', value: '1250' },
+    { text: '1300', value: '1300' },
+    { text: '1350', value: '1350' },
+    { text: '1400', value: '1400' },
+    { text: '1450', value: '1450' },
+    { text: '1500', value: '1500' }
+];
+
+
+

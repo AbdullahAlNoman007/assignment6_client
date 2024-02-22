@@ -8,7 +8,7 @@ import PHCheckbox from "../../../components/form/PHCheckbox";
 import { useCreatephoneMutation } from "../../../redux/features/getPhone/getPhoneApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { batteryLifeOptions, cameraQualityOptions, colorOptions, operatingSystemOption, ramOptions, romOptions, screenSizeOptions } from "../../../const";
+import { batteryLifeOptions, cameraQualityOptions, colorOptions, operatingSystemOption, phoneBrandOptions, ramOptions, romOptions, screenSizeOptions } from "../../../const";
 
 
 const AddPhone = () => {
@@ -67,7 +67,7 @@ const AddPhone = () => {
                             <PHInput type="number" name="quantity" label="Quantity" />
                         </Col>
                         <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                            <PHInput type="text" name="brand" label="Brand" />
+                            <PHSelect name="brand" label="Brand" options={phoneBrandOptions} />
                         </Col>
                         <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
                             <PHInput type="text" name="model" label="Model" />

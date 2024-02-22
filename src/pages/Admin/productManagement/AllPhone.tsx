@@ -1,11 +1,13 @@
-import { Button, Space, Table, TableColumnsType } from "antd";
+import { Button, Slider, Space, Table, TableColumnsType, TableProps } from "antd";
 import { Link } from "react-router-dom";
-import { useGetallphoneQuery } from "../../../redux/features/getPhone/getPhoneApi";
-import { TproductData, Tresponse } from "../../../types/program.type";
+import { useGetphoneQuery } from "../../../redux/features/getPhone/getPhoneApi";
+import { Tfilter, TproductData, Tresponse } from "../../../types/program.type";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { IoDuplicate } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa";
+import { batteryLifeFilterOptions, cameraQualityFilterOptions, phoneBrandFilterOptions, priceFilterOptions, ramFilterOptions, romFilterOptions, screenSizeFilterOptions } from "../../../const";
+import { useState } from "react";
 
 type TtableData = {
     key: string;
@@ -23,12 +25,18 @@ type TtableData = {
 }
 
 const AllPhone = () => {
-    const { data: phoneData, isFetching } = useGetallphoneQuery(undefined)
+    const [params, setParams] = useState<Tfilter[]>([])
+    const [page, setPage] = useState(1)
+    const [range, setrange] = useState('')
+    const { data: phoneData, isFetching } = useGetphoneQuery([
+        ...params
+    ])
     const columns: TableColumnsType<TtableData> = [
         {
             title: 'Brand',
             key: 'brand',
             dataIndex: 'brand',
+            filters: phoneBrandFilterOptions
         },
         {
             title: 'Model',
@@ -39,6 +47,7 @@ const AllPhone = () => {
             title: 'Price',
             key: 'price',
             dataIndex: 'price',
+            filters: priceFilterOptions
         },
         {
             title: 'Quantity',
@@ -52,7 +61,7 @@ const AllPhone = () => {
             filters: [
                 {
                     text: 'Andriod',
-                    value: 'andrioid',
+                    value: 'andriod',
                 },
                 {
                     text: 'iOS',
@@ -64,26 +73,31 @@ const AllPhone = () => {
             title: 'RAM',
             key: 'ram',
             dataIndex: 'ram',
+            filters: ramFilterOptions
         },
         {
             title: 'Storage Capacity',
             key: 'storageCapacity',
             dataIndex: 'storageCapacity',
+            filters: romFilterOptions
         },
         {
             title: 'Screen Size',
             key: 'screenSize',
             dataIndex: 'screenSize',
+            filters: screenSizeFilterOptions
         },
         {
             title: 'Camera Quality',
             key: 'cameraQuality',
             dataIndex: 'cameraQuality',
+            filters: cameraQualityFilterOptions
         },
         {
             title: 'Battery Life',
             key: 'batteryLife',
             dataIndex: 'batteryLife',
+            filters: batteryLifeFilterOptions
         },
         {
             title: "Action",
@@ -129,9 +143,29 @@ const AllPhone = () => {
         }
     });
 
+    const onChange: TableProps<TtableData>['onChange'] = (_pagination, filters, _sorter, extra) => {
+        console.log(filters);
+
+        if (extra.action === 'filter') {
+            const queryParams: Tfilter[] = []
+            filters.operatingSystem?.forEach((item) => queryParams.push({ name: 'operatingSystem', value: item }))
+            filters.ram?.forEach((item) => queryParams.push({ name: 'ram', value: item }))
+            filters.storageCapacity?.forEach((item) => queryParams.push({ name: 'storageCapacity', value: item }))
+            filters.screenSize?.forEach((item) => queryParams.push({ name: 'screenSize', value: item }))
+            filters.cameraQuality?.forEach((item) => queryParams.push({ name: 'cameraQuality', value: item }))
+            filters.batteryLife?.forEach((item) => queryParams.push({ name: 'batteryLife', value: item }))
+            filters.brand?.forEach((item) => queryParams.push({ name: 'brand', value: item }))
+            setParams(queryParams)
+        }
+    };
+    const onRange = (newValue: number[]) => {
+        setrange(`${newValue[0]}-${newValue[1]}`)
+    };
+
     return (
         <>
-            <Table loading={isFetching} columns={columns} dataSource={tableData} pagination={false} />
+            <Slider range min={0} max={2000} defaultValue={[150, 550]} onChange={onRange} />
+            <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} pagination={false} />
         </>
     );
 };

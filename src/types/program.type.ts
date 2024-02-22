@@ -83,3 +83,5 @@ export interface Tresponse<T> {
     message: string;
     data: T[]
 }
+
+export type Tfilter = { name: string, value: boolean | React.Key }

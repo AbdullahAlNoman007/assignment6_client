@@ -1,3 +1,4 @@
+import { Tfilter } from "../../../types/program.type";
 import { baseApi } from "../../api/baseApi";
 
 export const getPhoneApi = baseApi.injectEndpoints({
@@ -26,10 +27,21 @@ export const getPhoneApi = baseApi.injectEndpoints({
             invalidatesTags: ['phone']
         }),
         getphone: builder.query({
-            query: (info) => ({
-                url: `/product/get-product${info}`,
-                method: 'GET'
-            })
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                    args.forEach((element: Tfilter) => {
+                        params.append(element.name, element.value as string)
+                    });
+                }
+                return {
+                    url: `/product/get-product`,
+                    method: 'GET',
+                    params
+                }
+
+            },
+            providesTags: ['phone']
         })
     })
 })
