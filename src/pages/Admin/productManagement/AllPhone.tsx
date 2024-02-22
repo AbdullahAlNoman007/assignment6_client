@@ -6,7 +6,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { IoDuplicate } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa";
-import { batteryLifeFilterOptions, cameraQualityFilterOptions, phoneBrandFilterOptions, priceFilterOptions, ramFilterOptions, romFilterOptions, screenSizeFilterOptions } from "../../../const";
+import { batteryLifeFilterOptions, cameraQualityFilterOptions, phoneBrandFilterOptions, ramFilterOptions, romFilterOptions, screenSizeFilterOptions } from "../../../const";
 import { useState } from "react";
 
 type TtableData = {
@@ -36,7 +36,6 @@ const AllPhone = () => {
         { name: 'limit', value: 5 },
         ...params
     ])
-    console.log(phoneData);
 
     const columns: TableColumnsType<TtableData> = [
         {
@@ -49,17 +48,18 @@ const AllPhone = () => {
             title: 'Model',
             key: 'model',
             dataIndex: 'model',
+            responsive: ['lg'],
         },
         {
             title: 'Price',
             key: 'price',
             dataIndex: 'price',
-            filters: priceFilterOptions
         },
         {
             title: 'Quantity',
             key: 'quantity',
             dataIndex: 'quantity',
+            responsive: ['md'],
         },
         {
             title: 'Operating System',
@@ -74,53 +74,59 @@ const AllPhone = () => {
                     text: 'iOS',
                     value: 'iOS',
                 },
-            ]
+            ],
+            responsive: ['lg'],
         },
         {
             title: 'RAM',
             key: 'ram',
             dataIndex: 'ram',
-            filters: ramFilterOptions
+            filters: ramFilterOptions,
+            responsive: ['md'],
         },
         {
             title: 'Storage Capacity',
             key: 'storageCapacity',
             dataIndex: 'storageCapacity',
-            filters: romFilterOptions
+            filters: romFilterOptions,
+            responsive: ['md'],
         },
         {
             title: 'Screen Size',
             key: 'screenSize',
             dataIndex: 'screenSize',
-            filters: screenSizeFilterOptions
+            filters: screenSizeFilterOptions,
+            responsive: ['lg'],
         },
         {
             title: 'Camera Quality',
             key: 'cameraQuality',
             dataIndex: 'cameraQuality',
-            filters: cameraQualityFilterOptions
+            filters: cameraQualityFilterOptions,
+            responsive: ['lg'],
         },
         {
             title: 'Battery Life',
             key: 'batteryLife',
             dataIndex: 'batteryLife',
-            filters: batteryLifeFilterOptions
+            filters: batteryLifeFilterOptions,
+            responsive: ['lg'],
         },
         {
             title: "Action",
             key: 'action',
             render: (item) => (
                 <Space>
-                    <Link to={`/admin/product-update/${item.key}`}>
+                    <Link to={`/superAdmin/update-phone/${item.key}`}>
                         <Button><CiEdit /></Button>
                     </Link>
-                    <Link to={`/admin/product-update/${item.key}`}>
+                    <Link to={`/superAdmin/product-update/${item.key}`}>
                         <Button><MdDelete /></Button>
                     </Link>
-                    <Link to={`/admin/product-update/${item.key}`}>
+                    <Link to={`/superAdmin/create-variant/${item.key}`}>
                         <Button><IoDuplicate /></Button>
                     </Link>
-                    <Link to={`/admin/product-update/${item.key}`}>
+                    <Link to={`/superAdmin/product-update/${item.key}`}>
                         <Button><FaCartArrowDown /></Button>
                     </Link>
                 </Space>

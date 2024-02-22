@@ -74,6 +74,7 @@ export interface TproductData {
     screenSize: string;
     cameraQuality: string;
     batteryLife: string;
+    color: string;
     __v: number;
 }
 

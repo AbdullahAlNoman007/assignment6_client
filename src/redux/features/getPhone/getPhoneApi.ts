@@ -10,6 +10,12 @@ export const getPhoneApi = baseApi.injectEndpoints({
             }),
             providesTags: ['phone']
         }),
+        getSinglePhone: builder.query({
+            query: (id) => ({
+                url: `/product/get-product/${id}`,
+                method: "GET"
+            })
+        }),
         createphone: builder.mutation({
             query: (info) => ({
                 url: '/product/create-product',
@@ -46,4 +52,4 @@ export const getPhoneApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useGetallphoneQuery, useCreatephoneMutation, useDeletephoneMutation, useGetphoneQuery } = getPhoneApi
+export const { useGetallphoneQuery, useCreatephoneMutation, useDeletephoneMutation, useGetphoneQuery, useGetSinglePhoneQuery } = getPhoneApi

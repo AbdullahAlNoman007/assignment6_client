@@ -2,7 +2,6 @@ import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AddPhone from "../pages/Admin/productManagement/AddPhone";
 import AllPhone from "../pages/Admin/productManagement/AllPhone";
 import DeletePhone from "../pages/Admin/productManagement/DeletePhone";
-import PhoneFiltering from "../pages/Admin/productManagement/PhoneFiltering";
 import SaleHistory from "../pages/Admin/productManagement/SaleHistory";
 import AllManager from "../pages/Admin/userManagement/AllManager";
 import AllSeller from "../pages/Admin/userManagement/AllSeller";
@@ -10,6 +9,8 @@ import AllSuperAdmin from "../pages/Admin/userManagement/AllSuperAdmin";
 import CreateManager from "../pages/Admin/userManagement/CreateManager";
 import CreateSeller from "../pages/Admin/userManagement/CreateSeller";
 import CreateSuperAdmin from "../pages/Admin/userManagement/CreateSuperAdmin";
+import CreateVariant from "../pages/CreateVariant";
+import UpdatePhone from "../pages/UpdatePhone";
 
 
 export const adminPaths = [
@@ -67,14 +68,17 @@ export const adminPaths = [
         element: <AllPhone />
       },
       {
+        path: "update-phone/:id",
+        element: <UpdatePhone />
+      },
+      {
+        path: "create-variant/:id",
+        element: <CreateVariant />
+      },
+      {
         name: "Delete Phone",
         path: "delete-phone",
         element: <DeletePhone />
-      },
-      {
-        name: "Phone Filtering",
-        path: "phone-filtering",
-        element: <PhoneFiltering />
       },
       {
         name: "Sale History",
