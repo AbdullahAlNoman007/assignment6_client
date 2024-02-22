@@ -1,4 +1,4 @@
-import { Button, Slider, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Col, Input, Pagination, Row, Slider, Space, Table, TableColumnsType, TableProps } from "antd";
 import { Link } from "react-router-dom";
 import { useGetphoneQuery } from "../../../redux/features/getPhone/getPhoneApi";
 import { Tfilter, TproductData, Tresponse } from "../../../types/program.type";
@@ -25,10 +25,14 @@ type TtableData = {
 }
 
 const AllPhone = () => {
+    let queryParams: Tfilter[] = []
     const [params, setParams] = useState<Tfilter[]>([])
+    console.log(params);
+
     const [page, setPage] = useState(1)
-    const [range, setrange] = useState('')
+    const [range, setrange] = useState('0-1500')
     const { data: phoneData, isFetching } = useGetphoneQuery([
+        { name: 'price', value: range },
         ...params
     ])
     const columns: TableColumnsType<TtableData> = [
@@ -144,10 +148,8 @@ const AllPhone = () => {
     });
 
     const onChange: TableProps<TtableData>['onChange'] = (_pagination, filters, _sorter, extra) => {
-        console.log(filters);
-
         if (extra.action === 'filter') {
-            const queryParams: Tfilter[] = []
+
             filters.operatingSystem?.forEach((item) => queryParams.push({ name: 'operatingSystem', value: item }))
             filters.ram?.forEach((item) => queryParams.push({ name: 'ram', value: item }))
             filters.storageCapacity?.forEach((item) => queryParams.push({ name: 'storageCapacity', value: item }))
@@ -161,11 +163,47 @@ const AllPhone = () => {
     const onRange = (newValue: number[]) => {
         setrange(`${newValue[0]}-${newValue[1]}`)
     };
+    const onSearch = (searchQuery: string) => {
+        const newParams: Tfilter[] = [...params];
+        const searchTerm: Tfilter = {
+            name: 'searchTerm',
+            value: searchQuery.trim()
+        };
+        if (searchQuery) {
+            const existingSearchIndex = newParams.findIndex(param => param.name === 'searchTerm');
+            if (existingSearchIndex !== -1) {
+                newParams.splice(existingSearchIndex, 1);
+            }
+            newParams.push(searchTerm);
+        } else {
+            const existingSearchIndex = newParams.findIndex(param => param.name === 'searchTerm');
+            if (existingSearchIndex !== -1) {
+                newParams.splice(existingSearchIndex, 1);
+            }
+        }
+        setParams(newParams);
+    };
+
 
     return (
         <>
-            <Slider range min={0} max={2000} defaultValue={[150, 550]} onChange={onRange} />
+            <Row gutter={10} style={{ marginBottom: '10px' }}>
+                <Col span={18}>
+                    <div>
+                        <h4>Price Range:</h4>
+                        <Slider range min={0} max={2000} step={50} defaultValue={[150, 550]} onChange={onRange} />
+                    </div>
+
+                </Col>
+                <Col span={5}>
+                    <div>
+                        <h4>Search:</h4>
+                        <Input type="text" placeholder="Search" onChange={(e) => onSearch(e.target.value)} />
+                    </div>
+                </Col>
+            </Row>
             <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} pagination={false} />
+            <Pagination pageSize={5} total={phoneData?.data?.length} onChange={(value) => setPage(value)} />
         </>
     );
 };
