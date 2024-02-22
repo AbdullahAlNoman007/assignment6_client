@@ -81,7 +81,12 @@ export interface Tresponse<T> {
     success: boolean;
     statusCode: number;
     message: string;
-    data: T[]
+    data: {
+        meta: {
+            total: number;
+        },
+        result: T[]
+    }
 }
 
 export type Tfilter = { name: string, value: boolean | React.Key }

@@ -27,14 +27,17 @@ type TtableData = {
 const AllPhone = () => {
     let queryParams: Tfilter[] = []
     const [params, setParams] = useState<Tfilter[]>([])
-    console.log(params);
 
     const [page, setPage] = useState(1)
     const [range, setrange] = useState('0-1500')
     const { data: phoneData, isFetching } = useGetphoneQuery([
         { name: 'price', value: range },
+        { name: 'page', value: page },
+        { name: 'limit', value: 5 },
         ...params
     ])
+    console.log(phoneData);
+
     const columns: TableColumnsType<TtableData> = [
         {
             title: 'Brand',
@@ -126,9 +129,10 @@ const AllPhone = () => {
         }
     ];
 
+    const total = (phoneData as Tresponse<TproductData>)?.data.meta.total;
     const tableData: TtableData[] = [];
 
-    (phoneData as Tresponse<TproductData>)?.data?.forEach(({ _id, brand, model, price, quantity, operatingSystem, ram, storageCapacity, screenSize, cameraQuality, batteryLife }) => {
+    (phoneData as Tresponse<TproductData>)?.data?.result?.forEach(({ _id, brand, model, price, quantity, operatingSystem, ram, storageCapacity, screenSize, cameraQuality, batteryLife }) => {
         if (quantity > 0) {
             tableData.push({
                 key: _id,
@@ -203,7 +207,7 @@ const AllPhone = () => {
                 </Col>
             </Row>
             <Table loading={isFetching} columns={columns} dataSource={tableData} onChange={onChange} pagination={false} />
-            <Pagination pageSize={5} total={phoneData?.data?.length} onChange={(value) => setPage(value)} />
+            <Pagination pageSize={5} total={total} onChange={(value) => setPage(value)} />
         </>
     );
 };
