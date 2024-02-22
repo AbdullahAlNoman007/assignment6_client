@@ -8,7 +8,8 @@ import PHCheckbox from "../../../components/form/PHCheckbox";
 import { useCreatephoneMutation } from "../../../redux/features/getPhone/getPhoneApi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { batteryLifeOptions, cameraQualityOptions, colorOptions, operatingSystemOption, ramOptions, romOptions, screenSizeOptions } from "../../../types";
+import { batteryLifeOptions, cameraQualityOptions, colorOptions, operatingSystemOption, ramOptions, romOptions, screenSizeOptions } from "../../../const";
+
 
 const AddPhone = () => {
     const [createphone] = useCreatephoneMutation()

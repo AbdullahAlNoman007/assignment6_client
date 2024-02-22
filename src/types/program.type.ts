@@ -59,6 +59,23 @@ export interface TuserInfo {
     role: string;
     __v: 0;
 }
+export interface TproductData {
+    _id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    releaseDate: string;
+    brand: string;
+    model: string;
+    operatingSystem: 'andriod' | 'iOS';
+    ram: string;
+    waterResistance: boolean;
+    storageCapacity: string;
+    screenSize: string;
+    cameraQuality: string;
+    batteryLife: string;
+    __v: number;
+}
 
 export interface Tresponse<T> {
     success: boolean;
