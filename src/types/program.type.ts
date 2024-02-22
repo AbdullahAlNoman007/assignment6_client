@@ -90,4 +90,18 @@ export interface Tresponse<T> {
     }
 }
 
+export type TsaleData = {
+    _id: string,
+    quantity: number,
+    buyerName: string,
+    saleDate: string,
+    __v: 0
+}
+export interface TresponseWithouMeta<T> {
+    success: boolean;
+    statusCode: number;
+    message: string;
+    data: T[]
+}
+
 export type Tfilter = { name: string, value: boolean | React.Key }
