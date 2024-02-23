@@ -1,6 +1,6 @@
 import { Button, Col, Flex, Space, Table, TableColumnsType } from "antd";
 import { useDeleteSuperAdminMutation, useGetAllSuperAdminQuery, useUpdateSuperAdminMutation } from "../../../redux/features/userManagement/userManagement.api";
-import { Tresponse, TuserInfo } from "../../../types/program.type";
+import { TresponseWithouMeta, TuserInfo } from "../../../types/program.type";
 import { useState } from 'react';
 import { Modal } from 'antd';
 import PHForm from "../../../components/form/PHForm";
@@ -48,7 +48,7 @@ const AllSuperAdmin = () => {
             width: '5%'
         }
     ];
-    const tableData = (userData as Tresponse<TuserInfo>)?.data?.map(({ _id, name, email }) => ({
+    const tableData = (userData as TresponseWithouMeta<TuserInfo>)?.data?.map(({ _id, name, email }) => ({
         key: _id,
         name,
         email,

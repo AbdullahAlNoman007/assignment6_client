@@ -24,7 +24,7 @@ const Sidebar = () => {
     user = verifyToken(token) as Tuser
   }
 
-  let sidebarItems;
+  let sidebarItems: any;
 
   switch (user!.role) {
     case userRole.SUPERADMIN:
