@@ -236,83 +236,83 @@ export const colorOptions = [
 
 export const phoneBrandOptions = [
     {
-        value: 'samsung',
+        value: 'Samsung',
         label: 'Samsung',
     },
     {
-        value: 'apple',
+        value: 'Spple',
         label: 'Apple',
     },
     {
-        value: 'huawei',
+        value: 'Huawei',
         label: 'Huawei',
     },
     {
-        value: 'xiaomi',
+        value: 'Xiaomi',
         label: 'Xiaomi',
     },
     {
-        value: 'oneplus',
+        value: 'Oneplus',
         label: 'OnePlus',
     },
     {
-        value: 'google',
+        value: 'Gogle',
         label: 'Google',
     },
     {
-        value: 'sony',
+        value: 'Sony',
         label: 'Sony',
     },
     {
-        value: 'lg',
+        value: 'Lg',
         label: 'LG',
     },
     {
-        value: 'motorola',
+        value: 'Motorola',
         label: 'Motorola',
     },
     {
-        value: 'nokia',
+        value: 'Nokia',
         label: 'Nokia',
     },
     {
-        value: 'htc',
+        value: 'Htc',
         label: 'HTC',
     },
     {
-        value: 'asus',
+        value: 'Asus',
         label: 'Asus',
     },
     {
-        value: 'lenovo',
+        value: 'Lnovo',
         label: 'Lenovo',
     },
     {
-        value: 'oppo',
+        value: 'Oppo',
         label: 'Oppo',
     },
     {
-        value: 'vivo',
+        value: 'Vivo',
         label: 'Vivo',
     },
     {
-        value: 'realme',
+        value: 'Realme',
         label: 'Realme',
     },
     {
-        value: 'blackberry',
+        value: 'Blackberry',
         label: 'BlackBerry',
     },
     {
-        value: 'meizu',
+        value: 'Meizu',
         label: 'Meizu',
     },
     {
-        value: 'zte',
+        value: 'Zte',
         label: 'ZTE',
     },
     {
-        value: 'alcatel',
+        value: 'Alcatel',
         label: 'Alcatel',
     }
 ];

@@ -1,10 +1,19 @@
 import { Button } from "antd";
 import jsPDF from "jspdf";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../redux/hook";
+import { useCurrentToken } from "../redux/features/auth/authSlicer";
+import { Tuser } from "../types/program.type";
+import { verifyToken } from "../utils/verifyToken";
 
 const InVoice = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const token = useAppSelector(useCurrentToken);
+    let user: Tuser;
+    if (token) {
+        user = verifyToken(token) as Tuser
+    }
     const { buyerName, quantity, saleDate } = location.state;
     const generate = async () => {
         const doc = new jsPDF();
@@ -12,6 +21,7 @@ const InVoice = () => {
         doc.text(`Quantity: ${quantity}`, 10, 20);
         doc.text(`Sale Date: ${saleDate}`, 10, 30);
         doc.save('invoice.pdf')
+        navigate(`/${user.role}/all-phone`)
     }
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
@@ -22,7 +32,7 @@ const InVoice = () => {
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', marginTop: '15px' }}>
                 <Button onClick={generate}>Download</Button>
-                <Button onClick={() => navigate('/')}>Skip</Button>
+                <Button onClick={() => navigate(`/${user.role}/all-phone`)}>Skip</Button>
             </div>
         </div>
     );
