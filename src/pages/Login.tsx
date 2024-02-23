@@ -15,6 +15,7 @@ const Login = () => {
     const dispatch = useAppDispatch();
 
     const defaultValues = {
+        email: 'sunan@gmail.com',
         password: 'ASD123!@#asd',
     };
 

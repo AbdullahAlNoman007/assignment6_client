@@ -10,7 +10,10 @@ import PHCheckbox from "../components/form/PHCheckbox";
 import PHDatePicker from "../components/form/PHDatePicker";
 import { batteryLifeOptions, cameraQualityOptions, colorOptions, operatingSystemOption, phoneBrandOptions, ramOptions, romOptions, screenSizeOptions } from "../const";
 import { useGetSinglePhoneQuery } from "../redux/features/getPhone/getPhoneApi";
-import { TproductData } from "../types/program.type";
+import { TproductData, Tuser } from "../types/program.type";
+import { useAppSelector } from "../redux/hook";
+import { useCurrentToken } from "../redux/features/auth/authSlicer";
+import { verifyToken } from "../utils/verifyToken";
 
 
 
@@ -19,6 +22,11 @@ const UpdatePhone = () => {
     const { data: productInfo, isFetching, isLoading } = useGetSinglePhoneQuery(id)
     const [updatephone] = useUpdatephoneMutation()
     const navigate = useNavigate()
+    const token = useAppSelector(useCurrentToken);
+    let user: Tuser;
+    if (token) {
+        user = verifyToken(token) as Tuser
+    }
 
     if (isFetching || isLoading) {
         return <p>Loading ...</p>
@@ -41,7 +49,7 @@ const UpdatePhone = () => {
                 throw new Error()
             }
             toast.success(res.message, { id: toastId })
-            navigate('/superAdmin/all-phone')
+            navigate(`/${user.role}/all-phone`)
         } catch (error: any) {
             toast.error(error?.data?.errorMessage, { id: toastId })
         }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
-import { useDeletephoneMutation, useGetphoneQuery } from '../../../redux/features/getPhone/getPhoneApi';
-import { TproductData, Tresponse } from '../../../types/program.type';
+import { useDeletephoneMutation, useGetallphoneQuery } from '../../../redux/features/getPhone/getPhoneApi';
+import { TproductData, TresponseWithouMeta } from '../../../types/program.type';
 import { toast } from 'sonner';
 
 type TtableData = {
@@ -22,7 +22,7 @@ type TtableData = {
 
 const DeletePhone = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const { data: phoneData, isLoading, isFetching } = useGetphoneQuery(undefined)
+    const { data: phoneData, isLoading, isFetching } = useGetallphoneQuery(undefined)
     const [deletephone] = useDeletephoneMutation()
 
     if (isFetching || isLoading) {
@@ -55,16 +55,6 @@ const DeletePhone = () => {
             title: 'Operating System',
             key: 'operatingSystem',
             dataIndex: 'operatingSystem',
-            filters: [
-                {
-                    text: 'Andriod',
-                    value: 'andriod',
-                },
-                {
-                    text: 'iOS',
-                    value: 'iOS',
-                },
-            ],
             responsive: ['lg'],
         },
         {
@@ -100,7 +90,7 @@ const DeletePhone = () => {
     ];
     const tableData: TtableData[] = [];
 
-    (phoneData as Tresponse<TproductData>)?.data?.result?.forEach(({ _id, brand, model, price, quantity, operatingSystem, ram, storageCapacity, screenSize, cameraQuality, batteryLife }) => {
+    (phoneData as TresponseWithouMeta<TproductData>)?.data?.forEach(({ _id, brand, model, price, quantity, operatingSystem, ram, storageCapacity, screenSize, cameraQuality, batteryLife }) => {
         if (quantity > 0) {
             tableData.push({
                 key: _id,

@@ -1,6 +1,6 @@
-import { Select, Space, Table, TableColumnsType, TableProps } from "antd";
+import { Select, Table, TableColumnsType } from "antd";
 import { useSalehistoryQuery } from "../../../redux/features/getPhone/updatePhoneApi";
-import { Tfilter, TresponseWithouMeta, TsaleData } from "../../../types/program.type";
+import { TresponseWithouMeta, TsaleData } from "../../../types/program.type";
 import moment from "moment";
 import { useState } from "react";
 

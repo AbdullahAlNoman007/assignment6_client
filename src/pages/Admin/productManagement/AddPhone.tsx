@@ -9,12 +9,20 @@ import { useCreatephoneMutation } from "../../../redux/features/getPhone/getPhon
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { batteryLifeOptions, cameraQualityOptions, colorOptions, operatingSystemOption, phoneBrandOptions, ramOptions, romOptions, screenSizeOptions } from "../../../const";
+import { useCurrentToken } from "../../../redux/features/auth/authSlicer";
+import { useAppSelector } from "../../../redux/hook";
+import { verifyToken } from "../../../utils/verifyToken";
+import { Tuser } from "../../../types/program.type";
 
 
 const AddPhone = () => {
     const [createphone] = useCreatephoneMutation()
     const navigate = useNavigate()
-
+    const token = useAppSelector(useCurrentToken);
+    let user: Tuser;
+    if (token) {
+        user = verifyToken(token) as Tuser
+    }
     const defaultValues = {
         name: 'iphone',
         price: 12,
@@ -35,6 +43,8 @@ const AddPhone = () => {
         const toastId = toast.loading('Creating...')
         const phoneInfo = {
             ...data,
+            price: Number(data.price),
+            quantity: Number(data.quantity),
             releaseDate: (data.releaseDate).toISOString()
         };
         try {
@@ -45,7 +55,7 @@ const AddPhone = () => {
                 throw new Error()
             }
             toast.success(res.message, { id: toastId })
-            navigate('/superAdmin/all-phone')
+            navigate(`/${user.role}/all-phone`)
         } catch (error: any) {
             toast.error(error?.data?.errorMessage, { id: toastId })
         }
