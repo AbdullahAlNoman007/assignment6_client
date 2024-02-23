@@ -2,7 +2,7 @@ import { Button, Row } from 'antd';
 import { FieldValues } from 'react-hook-form';
 import { useLoginMutation } from '../redux/features/auth/authApi';
 import { verifyToken } from '../utils/verifyToken';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import PHForm from '../components/form/PHForm';
 import PHInput from '../components/form/PHInput';
@@ -15,7 +15,7 @@ const Login = () => {
     const dispatch = useAppDispatch();
 
     const defaultValues = {
-        email: 'sunan@gmail.com',
+        email: '@gmail.com',
         password: 'ASD123!@#asd',
     };
 
@@ -51,7 +51,9 @@ const Login = () => {
                 <PHInput type="text" name="email" label="Email" />
                 <PHInput type="password" name="password" label="Password" />
                 <Button htmlType="submit">Login</Button>
+                <p style={{ marginTop: '15px' }} >Don't have any account? <Link to='/register'>Register</Link></p>
             </PHForm>
+
         </Row>
     );
 };
